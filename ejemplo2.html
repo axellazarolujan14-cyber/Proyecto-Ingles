@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Album – 30 Web Dev & Design Artifacts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b0e14 0%, #1a1f2b 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #f0f4ff;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 12px rgba(0, 20, 40, 0.6);
+            margin-bottom: 0.25rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #8899bb;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid #2a3a55;
+            padding-bottom: 0.6rem;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.2rem;
+            max-width: 1800px;
+            width: 100%;
+            justify-items: center;
+        }
+
+        .tech-card {
+            background: #1e2636;
+            border-radius: 28px;
+            padding: 1.5rem 1.5rem 1.8rem;
+            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.7),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.06);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 320px;
+            backdrop-filter: blur(2px);
+            border: 1px solid #2f3b52;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 50px -12px #0a0e16;
+            border-color: #4f6b94;
+        }
+
+        .photo {
+            background: #10161f;
+            border-radius: 20px;
+            width: 100%;
+            aspect-ratio: 1 / 0.9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            box-shadow: inset 0 0 0 1px #2e3b4f, 0 8px 14px rgba(0,0,0,0.6);
+            transition: background 0.2s;
+            padding: 0.5rem;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .photo span {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #a4bbdd;
+            background: rgba(0,0,0,0.4);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            margin-top: 0.3rem;
+            letter-spacing: 0.3px;
+        }
+
+        .it-is {
+            margin-top: 1.2rem;
+            font-size: 0.92rem;
+            background: #0e141f;
+            padding: 0.75rem 1rem;
+            border-radius: 60px;
+            color: #b6ccf0;
+            border-left: 4px solid #3d7eff;
+            width: 100%;
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+            transition: 0.15s;
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2px;
+        }
+
+        .tech-card:hover .it-is {
+            background: #1a253b;
+            border-left-color: #7aa3ff;
+            color: #ffffff;
+        }
+
+        .it-is strong {
+            color: #8ab0ff;
+            font-weight: 700;
+            margin-right: 2px;
+            font-size: 1rem;
+            background: #162033;
+            padding: 0.1rem 0.7rem;
+            border-radius: 40px;
+            border: 1px solid #2a4060;
+        }
+
+        /* Estilo especial para "a" y "an" */
+        .it-is .article-a {
+            color: #6fcf97;
+            background: #1a2f28;
+            border-color: #2e8b57;
+        }
+
+        .it-is .article-an {
+            color: #f2c94a;
+            background: #2f2a1a;
+            border-color: #b8860b;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem 1.2rem;
+            margin-bottom: 2.8rem;
+            background: #141c2a;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            border: 1px solid #2d3d58;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: #9aafd0;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .filter-btn:hover {
+            color: #d6e4ff;
+            background: #26334b;
+        }
+
+        .filter-btn.active {
+            background: #3d5f9e;
+            color: white;
+            box-shadow: 0 4px 12px #1f3a70;
+        }
+
+        .counter {
+            color: #8ea3c9;
+            font-size: 0.95rem;
+            margin-left: 1rem;
+            background: #1f2a3d;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            background: #141c2a;
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            border: 1px solid #2d3d58;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #b6ccf0;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .legend-color.a {
+            color: #6fcf97;
+            background: #1a2f28;
+            border: 1px solid #2e8b57;
+        }
+
+        .legend-color.an {
+            color: #f2c94a;
+            background: #2f2a1a;
+            border: 1px solid #b8860b;
+        }
+
+        @media (max-width: 550px) {
+            h1 { font-size: 2rem; }
+            .album-grid { gap: 1.5rem; }
+            .filter-bar { gap: 0.3rem; padding: 0.8rem 1rem; }
+            .photo { font-size: 3.5rem; }
+            .legend { gap: 1rem; padding: 0.5rem 1rem; flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📦 30 WEB DEV & DESIGN ARTIFACTS</h1>
+    <div class="subtitle">⚡ hardware · software · platforms · databases · testing</div>
+
+    <!-- LEYENDA -->
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-color a">It is a</span>
+            <span>→ para palabras que empiezan con CONSONANTE</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-color an">It is an</span>
+            <span>→ para palabras que empiezan con VOCAL</span>
+        </div>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all">📦 All</button>
+        <button class="filter-btn" data-filter="hardware">💻 Hardware</button>
+        <button class="filter-btn" data-filter="software">🖥️ Software</button>
+        <button class="filter-btn" data-filter="platform">🌐 Platforms</button>
+        <button class="filter-btn" data-filter="database">🗄️ Databases</button>
+        <button class="filter-btn" data-filter="testing">🧪 Testing/VR</button>
+        <span class="counter" id="itemCounter">30 items</span>
+    </div>
+
+    <div class="album-grid" id="albumGrid"></div>
+
+    <script>
+        (function() {
+            // Función para determinar si usa "a" o "an"
+            function getArticle(desc) {
+                const firstWord = desc.trim().split(' ')[0].toLowerCase();
+                const vowels = ['a', 'e', 'i', 'o', 'u'];
+                if (vowels.includes(firstWord[0])) {
+                    return { article: 'an', cssClass: 'article-an' };
+                } else {
+                    return { article: 'a', cssClass: 'article-a' };
+                }
+            }
+
+            const items = [
+                // ===== HARDWARE (físico para dev/design) =====
+                {
+                    id: 1,
+                    name: "MacBook Pro M3",
+                    emoji: "💻",
+                    desc: "powerful laptop for coding, design & deployments",
+                    category: "hardware"
+                },
+                {
+                    id: 2,
+                    name: "Dell XPS 15",
+                    emoji: "💻",
+                    desc: "Windows laptop for web dev & UI/UX",
+                    category: "hardware"
+                },
+                {
+                    id: 3,
+                    name: "LG UltraFine 5K",
+                    emoji: "🖥️",
+                    desc: "retina monitor for pixel-perfect design",
+                    category: "hardware"
+                },
+                {
+                    id: 4,
+                    name: "Dual Monitor Setup",
+                    emoji: "🖥️🖥️",
+                    desc: "multi-screen for dev, testing & design",
+                    category: "hardware"
+                },
+                {
+                    id: 5,
+                    name: "External SSD 2TB",
+                    emoji: "💾",
+                    desc: "fast storage for projects, VMs & assets",
+                    category: "hardware"
+                },
+                {
+                    id: 6,
+                    name: "Wacom Cintiq Pro",
+                    emoji: "✍️",
+                    desc: "pen display for UI/UX wireframing",
+                    category: "hardware"
+                },
+                {
+                    id: 7,
+                    name: "Mechanical Keyboard",
+                    emoji: "⌨️",
+                    desc: "tactile keyboard for long coding sessions",
+                    category: "hardware"
+                },
+                {
+                    id: 8,
+                    name: "Logitech MX Master 3S",
+                    emoji: "🖱️",
+                    desc: "ergonomic mouse for design & coding",
+                    category: "hardware"
+                },
+
+                // ===== SOFTWARE (herramientas de desarrollo) =====
+                {
+                    id: 9,
+                    name: "VS Code",
+                    emoji: "🧩",
+                    desc: "code editor with extensions for web dev",
+                    category: "software"
+                },
+                {
+                    id: 10,
+                    name: "Figma",
+                    emoji: "🎨",
+                    desc: "collaborative UI/UX design tool",
+                    category: "software"
+                },
+                {
+                    id: 11,
+                    name: "Adobe Creative Cloud",
+                    emoji: "🌈",
+                    desc: "Photoshop, Illustrator, XD for web assets",
+                    category: "software"
+                },
+                {
+                    id: 12,
+                    name: "GitHub Desktop",
+                    emoji: "🐙",
+                    desc: "GUI for version control & collaboration",
+                    category: "software"
+                },
+                {
+                    id: 13,
+                    name: "Docker Desktop",
+                    emoji: "🐳",
+                    desc: "containerization for web environments",
+                    category: "software"
+                },
+                {
+                    id: 14,
+                    name: "Postman",
+                    emoji: "📮",
+                    desc: "API testing & documentation",
+                    category: "software"
+                },
+                {
+                    id: 15,
+                    name: "Chrome DevTools",
+                    emoji: "🔧",
+                    desc: "debug, inspect & optimize websites",
+                    category: "software"
+                },
+
+                // ===== PLATFORMS (páginas web y servicios) =====
+                {
+                    id: 16,
+                    name: "WordPress",
+                    emoji: "📝",
+                    desc: "CMS for building websites & blogs",
+                    category: "platform"
+                },
+                {
+                    id: 17,
+                    name: "Shopify",
+                    emoji: "🛒",
+                    desc: "e-commerce platform for online stores",
+                    category: "platform"
+                },
+                {
+                    id: 18,
+                    name: "Vercel",
+                    emoji: "▲",
+                    desc: "deploy frontend apps with serverless functions",
+                    category: "platform"
+                },
+                {
+                    id: 19,
+                    name: "Netlify",
+                    emoji: "🚀",
+                    desc: "host static sites with CI/CD",
+                    category: "platform"
+                },
+                {
+                    id: 20,
+                    name: "AWS Amplify",
+                    emoji: "☁️",
+                    desc: "full-stack web app hosting & backend",
+                    category: "platform"
+                },
+                {
+                    id: 21,
+                    name: "Firebase",
+                    emoji: "🔥",
+                    desc: "backend-as-a-service for web apps",
+                    category: "platform"
+                },
+
+                // ===== DATABASES (bases de datos) =====
+                {
+                    id: 22,
+                    name: "MySQL",
+                    emoji: "🐬",
+                    desc: "relational database for web apps",
+                    category: "database"
+                },
+                {
+                    id: 23,
+                    name: "PostgreSQL",
+                    emoji: "🐘",
+                    desc: "advanced relational database",
+                    category: "database"
+                },
+                {
+                    id: 24,
+                    name: "MongoDB",
+                    emoji: "🍃",
+                    desc: "NoSQL document database for modern web",
+                    category: "database"
+                },
+                {
+                    id: 25,
+                    name: "Redis",
+                    emoji: "🔴",
+                    desc: "in-memory cache & database for performance",
+                    category: "database"
+                },
+                {
+                    id: 26,
+                    name: "Supabase",
+                    emoji: "⚡",
+                    desc: "open-source Firebase alternative with PostgreSQL",
+                    category: "database"
+                },
+
+                // ===== TESTING / VR (experiencias web) =====
+                {
+                    id: 27,
+                    name: "Meta Quest 3",
+                    emoji: "🥽",
+                    desc: "test WebXR & 3D experiences in browser",
+                    category: "testing"
+                },
+                {
+                    id: 28,
+                    name: "Apple Vision Pro",
+                    emoji: "👓",
+                    desc: "test spatial web & AR experiences",
+                    category: "testing"
+                },
+                {
+                    id: 29,
+                    name: "Xbox Series X",
+                    emoji: "🎮",
+                    desc: "test web games & cloud gaming UI",
+                    category: "testing"
+                },
+                {
+                    id: 30,
+                    name: "Steam Deck",
+                    emoji: "🎮",
+                    desc: "test responsive web on handheld gaming devices",
+                    category: "testing"
+                }
+            ];
+
+            const grid = document.getElementById('albumGrid');
+            const counter = document.getElementById('itemCounter');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            function render(filter) {
+                const filtered = filter === 'all' 
+                    ? items 
+                    : items.filter(item => item.category === filter);
+
+                counter.textContent = filtered.length + ' item' + (filtered.length !== 1 ? 's' : '');
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column:1/-1; text-align:center; color:#7b8fb0; padding:3rem 0; font-size:1.2rem;">
+                            🕵️ no items in this category
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '';
+                filtered.forEach(item => {
+                    const { article, cssClass } = getArticle(item.desc);
+                    html += `
+                        <div class="tech-card" data-category="${item.category}">
+                            <div class="photo">
+                                ${item.emoji}
+                                <span>${item.name}</span>
+                            </div>
+                            <div class="it-is">
+                                <strong class="${cssClass}">It is ${article}</strong>
+                                <span>${item.desc}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                grid.innerHTML = html;
+            }
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    render(this.dataset.filter);
+                });
+            });
+
+            render('all');
+        })();
+    </script>
+
+</body>
+</html>
